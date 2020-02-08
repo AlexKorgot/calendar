@@ -1,0 +1,126 @@
+.container {
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+
+}
+.block {
+  max-width: 370px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 34px -10px rgba(0,0,0,1);
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.calendar_body, .event_body{
+  width: 351px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 23px 0px rgba(0,0,0,0.15);
+  background: #fff;
+  margin: 0 20px;
+}
+.calendar_body_tittle, .event_body_tittle {
+  display: block;
+  text-align: left;
+  padding: 11px;
+  font-weight: bold;
+  text-transform: capitalize;
+  color: rgba(0,0,0, .7);
+}
+.table {
+
+  width: 100%;
+}
+
+
+.pointer {
+  cursor:pointer;
+}
+
+.name_day {
+  display: flex;
+}
+.name_day div{
+  padding: 10px;
+}
+.week_days {
+  display: flex;
+  flex-wrap: wrap;
+}
+.week_days div {
+  padding: 10px;
+}
+.table th {
+  color: rgba(0,0,0, .4);
+  padding: 12px;
+}
+.table td {
+  padding: 15px;
+}
+
+.table tbody td{
+  position: relative;
+  cursor: pointer;
+}
+table tbody td:hover {
+  background: #5ee4ff;
+  border-radius: 50%;
+  color: #fff;
+}
+.active{
+  background: #207aff;
+  color: #fff;
+  border-radius: 50%;
+}
+.hidden{
+  opacity: 0;
+  cursor: default!important;
+}
+.selected {
+  border-radius: 50%;
+  background: #2a71ff;
+}
+
+.red{
+  color: red;
+}
+.li_event{
+  text-align: left;
+  list-style-type: none;
+}
+.activity {
+  background: #5ee4ff;
+  color: #fff;
+  border-radius: 50%;
+}
+.event_body_void{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.input_container {
+  position: relative;
+  max-width: 220px;
+  margin: 0 auto;
+}
+.input_container input {
+  width: 100%;
+}
+.icon_close img {
+  max-width: 100%;
+}
+.icon_close {
+  width: 25px;
+  position: absolute;
+  top: 50%;
+  margin-top: -12.5px;
+  right: -30px;
+  cursor:pointer;
+
+}
