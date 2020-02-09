@@ -1,16 +1,16 @@
 import { Mutation, State } from 'vuex-simple';
-import { EventModule } from '@/store/modules/event.modules'
+import { eventItems} from "@/data/calendar";
 
 
 export class MyStore {
 
   @State()
-  public message: any = [];
+  public message: Array<eventItems> = [];
 
 
   @Mutation()
-  public setMessages(payload: any) {
-    this.message.push(payload) ;
+  public setMessages(payload: eventItems) {
+    this.message.push(payload);
   }
 
 }

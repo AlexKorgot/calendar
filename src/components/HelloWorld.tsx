@@ -1,11 +1,11 @@
 import {Component, Prop} from 'vue-property-decorator';
 import {VueComponent} from '@/shims-vue';
-import moment from 'moment'
+import moment, {Moment} from 'moment'
 import {useStore} from 'vuex-simple';
 import {MyStore} from '@/store/store';
 
-
 import styles from './Calendar.css?module'
+import {eventItems, CalendarArray} from "@/data/calendar";
 
 
 @Component
@@ -14,9 +14,8 @@ export default class Calendar extends VueComponent {
   public store: MyStore = useStore(this.$store);
 
   weekDays: string[] = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
-  eventMessages: string | undefined = ''
-  keyTimeStamp: string = '';
-  nowData: any = '';
+  eventMessages: string | null = null
+  keyTimeStamp: string | null = null;
   month: string | null = null;
   day: string | null = null
 
@@ -29,9 +28,9 @@ export default class Calendar extends VueComponent {
       if (self.keyTimeStamp) {
         return (
           <div class={styles.event_body}>
-            <span class={styles.event_body_tittle}>События: {self.nowData.format('dd-DD-MM')}</span>
+            <span class={styles.event_body_tittle}>События</span>
             <div class={styles.input_container}>
-              <input on-keyup={(e) => {
+              <input on-keyup={(e: { keyCode: number; target: { value: string; }; }) => {
                 if (e.keyCode === 13) {
                   self.store.setMessages({
                     key: self.keyTimeStamp,
@@ -40,17 +39,16 @@ export default class Calendar extends VueComponent {
                   e.target.value = ''
                 }
               }}
-                     on-input={(e) => {
+                     on-input={(e: { target: { value: string | null; }; }) => {
                        if (e.target.value) {
                          self.eventMessages = e.target.value
                        }
                      }}/>
             </div>
             <ul>
-              {self.store.message.filter(res => {
-                console.error(res.key)
+              {self.store.message.filter((res: eventItems) => {
                 return res.key === self.keyTimeStamp
-              }).map(res => {
+              }).map((res: eventItems) => {
                 return (
                   <li class={styles.li_event}>
                     {res.event}
@@ -64,7 +62,7 @@ export default class Calendar extends VueComponent {
         return (
           <div class={styles.event_body}>
             <div class={styles.event_body_void}>
-              Кликните по дате что бы узнать события
+              Кликните по дате что бы внести события
             </div>
           </div>
         )
@@ -93,19 +91,19 @@ export default class Calendar extends VueComponent {
             {this.getCalendar.map((items) => {
               return (
                 <tr>
-                  {items.days.map((itemsTime, i) => {
+                  {items.days.map((itemsTime: Moment) => {
                     const days = itemsTime.format('D')
                     const daysTimeStamp = itemsTime.format('X')
                     const month = itemsTime.format('M')
-                    let store = this.store.message && this.store.message.length > 0 ? this.store.message : null;
-                    if (store) {
-                      store = store.map(key => key.key)
+                    let store;
+                    if (this.store.message && this.store.message.length > 0) {
+                      store = this.store.message.map((key: eventItems) => key.key)
                     }
                     return (
                       <td on-click={() => {
                         if (month === this.month) this.pickDate(itemsTime)
                       }}
-                          class={[daysTimeStamp === this.keyTimeStamp ? styles.activity : '', month !== this.month ? styles.hidden : '', days === this.day ? styles.active : "", store && store.find((id: string) => id === daysTimeStamp) ? styles.red : '']}>
+                          class={[daysTimeStamp === this.keyTimeStamp ? styles.activity : '', month !== this.month ? styles.hidden : '', days === this.day ? styles.active : "", store && store.find((id) => id === daysTimeStamp) ? styles.red : '']}>
                         {days}
                       </td>
                     )
@@ -121,22 +119,21 @@ export default class Calendar extends VueComponent {
     )
   }
 
-  get getCalendar() {
+  get getCalendar(): Array<CalendarArray> {
     return this.calendarConstructor()
   }
 
 
-  momentLocale() {
+  momentLocale(): void {
     moment.locale('ru')
   }
 
-  pickDate(val) {
+  pickDate(val: Moment) {
     this.keyTimeStamp = val.format('X')
-    this.nowData = val
 
   }
 
-  calendarConstructor() {
+  calendarConstructor(): Array<CalendarArray> {
     const startWeek = moment().startOf('month').week();
     const endWeek = moment().endOf('month').week();
     let calendar = []

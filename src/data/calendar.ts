@@ -1,9 +1,16 @@
-export interface payloadCalendar {
-  key: string;
-  event: string
+import {Moment} from "moment";
+
+export interface eventItems {
+  key: string | null
+  event: string | null
 
 }
 
-export interface mutationCalendar {
-  messages: payloadCalendar[]
+export interface mutationCalendar{
+  messages: eventItems[] | null
+}
+
+export interface CalendarArray {
+  days: Array<Moment>
+
 }
