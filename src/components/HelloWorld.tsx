@@ -54,7 +54,7 @@ export default class Calendar extends VueComponent {
               {self.isValid && !self.eventMessages && <span class={styles.red}>Поле не должно быть пустым</span>}
               {self.isValid && self.eventMessages && self.eventMessages.length < 5 && <span class={styles.red}>Событие должно содержать не меньше 5 символов</span>}
             </div>
-            {self.store.message && self.store.message.length > 0 && <ul>
+            {self.isEventList.length > 0 && <ul>
               {self.store.message.filter((res: EventItems) => {
                 return res.key === self.keyTimeStamp
               }).map((res: EventItems) => {
@@ -65,7 +65,7 @@ export default class Calendar extends VueComponent {
                 )
               })}
             </ul>}
-            {self.isEvent.length === 0 && <span>
+            {self.isEventList.length === 0 && <span>
               Событий нет
             </span>}
           </div>
@@ -137,7 +137,7 @@ export default class Calendar extends VueComponent {
     return this.calendarConstructor()
   }
 
-  get isEvent(): EventItems[] | []{
+  get isEventList(): EventItems[] | []{
     return this.store.message.filter((res: EventItems) => {
       return res.key === this.keyTimeStamp
     })
