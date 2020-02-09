@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from "vuex-persistedstate";
+
 
 // @ts-ignore
 import { createVuexStore } from 'vuex-simple';
@@ -13,5 +15,6 @@ const instance = new MyStore();
 export default createVuexStore(instance, {
   strict: false,
   modules: {},
-  plugins: []
+  plugins: [createPersistedState()]
 });
+// createPersistedState()

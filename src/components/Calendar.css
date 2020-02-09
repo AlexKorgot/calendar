@@ -131,3 +131,7 @@ table tbody td:hover {
   cursor:pointer;
 
 }
+.input_container .red {
+  font-size: 11px;
+  text-align: left;
+}
