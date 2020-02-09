@@ -118,6 +118,7 @@ table tbody td:hover {
 }
 .input_container input {
   width: 100%;
+  margin-bottom: 20px;
 }
 .icon_close img {
   max-width: 100%;
